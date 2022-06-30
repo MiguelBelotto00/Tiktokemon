@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tiktokemon/home_page.dart';
+import 'package:tiktokemon/screens/home_page.dart';
 
 void main() => runApp(const MyApp());
 
