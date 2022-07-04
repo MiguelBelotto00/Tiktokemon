@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tiktokemon/widgets/contenedor_del_tipo.dart';
 class CardHability extends StatelessWidget {
-  final String type;
-  final String points;
-  const CardHability({Key? key, required this.type, required this.points}) : super(key: key);
+  final String? type;
+  final int? points;
+  final MaterialColor colors;
+  const CardHability({Key? key,this.type, this.points,required this.colors}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +12,7 @@ class CardHability extends StatelessWidget {
       child: FittedBox(
         child: Row(
           children: [
-            ContenedorDelTipo(type: type, points: points)
+            ContenedorDelTipo(type: type, points: points.toString(), colors: colors,)
           ],
         ),
       ),

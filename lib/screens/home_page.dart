@@ -1,70 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:tiktokemon/widgets/container_card.dart';
-import 'package:tiktokemon/widgets/header_fav_poke.dart';
+import 'package:tiktokemon/bloc/pokemon_bloc.dart';
+import 'package:tiktokemon/class/pokemon.dart';
+import 'package:tiktokemon/widgets/container_stack_data.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final pokemonBloc = PokemonBloc();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-           body: PageView(
-            physics: const BouncingScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Colors.orange,
-                child: Stack(children: [
-                  HeaderFavPokemon(),
-                  const ContainerCard(),
-                  Container(
-                    margin: EdgeInsets.only(top: 200.0,right: 30.0,left: 30.0),
-                    child: Image(image: NetworkImage(
-                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/5.png"
-                    ),width: 340.0,height: 340.0,),
-                  )
-                ]),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Colors.green,
-                child: Stack(children: [
-                  HeaderFavPokemon(),
-                  const ContainerCard(),
-                  Container(
-                    margin: EdgeInsets.only(top: 200.0,right: 30.0,left: 30.0),
-                    child: Image(image: NetworkImage(
-                        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"
-                    ),width: 340.0,height: 340.0,),
-                  )
-                ]),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Colors.blue,
-                child: Stack(children: [
-                  HeaderFavPokemon(),
-                  const ContainerCard(),
-                  Container(
-                    margin: EdgeInsets.only(top: 200.0,right: 30.0,left: 30.0),
-                    child: Image(image: NetworkImage(
-                        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/8.png"
-                    ),width: 340.0,height: 340.0,),
-                  )
-                ]),
-              ),
-          ]
-        ),
+           body: PageView.builder(
+               physics: const BouncingScrollPhysics(),
+               scrollDirection: Axis.vertical,
+             itemBuilder: (context,index) {
+              return StreamBuilder<List<Pokemon>>(
+                   stream: pokemonBloc.streamPokemonList(index),
+                   builder: (context, snapshot) {
+                     switch (snapshot.connectionState) {
+                       case ConnectionState.none:
+                       case ConnectionState.waiting:
+                         return Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(colors: [
+                                Colors.white,
+                                Colors.red
+                              ],stops: [0.5,0.5],begin: Alignment.topCenter,end: Alignment.bottomCenter),
+                            ),
+                             child: Column(
+                               mainAxisAlignment: MainAxisAlignment.center,
+                               crossAxisAlignment: CrossAxisAlignment.center,
+                               children: const [
+                                 CircularProgressIndicator(color: Colors.yellow,backgroundColor: Colors.red,),
+                                 Text("Pokemon en Camino...",style: TextStyle(color: Colors.yellow,fontSize: 20.0,fontWeight: FontWeight.w800),)
+                               ],
+                             ));
+                       case ConnectionState.active:
+                       case ConnectionState.done:
+                         return pokemonShowData(snapshot.data);
+                     }
+                   }
+               );
+             }),
       ),
     );
   }
+}
+
+Widget pokemonShowData(List<Pokemon>? pokemons){
+  return PageView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          children: pokemons!.map((pokemones){
+            return ContainerStackData(pokemon: pokemones,);
+          }).toList(),
+        );
 }

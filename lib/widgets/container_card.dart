@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tiktokemon/widgets/button_yo_te_elijo.dart';
 import 'package:tiktokemon/widgets/card_hability.dart';
+import '../class/pokemon.dart';
 class ContainerCard extends StatelessWidget {
-  const ContainerCard({Key? key}) : super(key: key);
+  late Pokemon? pokemon;
+  final MaterialColor colors;
+
+   ContainerCard({Key? key, required this.pokemon, required this.colors}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +34,17 @@ class ContainerCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      CardHability(type: "Attack", points: "49"),
-                      CardHability(type: "Defense", points: "45")
+                      CardHability(type: pokemon!.stats![0].stat!.name, points: pokemon!.stats![0].baseStat,colors: colors,),
+                      CardHability(type: pokemon!.stats![1].stat!.name, points: pokemon!.stats![1].baseStat,colors: colors,)
                     ],
                   ),
                   Row(
                     children: [
-                      CardHability(type: "HP", points: "45"),
-                      CardHability(type: "Defense", points: "16")
+                      CardHability(type: pokemon!.stats![2].stat!.name, points: pokemon!.stats![2].baseStat,colors: colors,),
+                      CardType(type: pokemon!.types![0].type!.name)
                     ],
                   ),
-                  ButtonYoTeElijo()
+                  ButtonYoTeElijo(pokemon: pokemon,)
                 ],
               ),
             ),
@@ -49,4 +53,38 @@ class ContainerCard extends StatelessWidget {
       ],
     );
   }
+}
+
+class CardType extends StatelessWidget{
+  final String? type;
+  const CardType({Key? key, this.type=""}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    final heightContenedoresHabs = (MediaQuery.of(context).size.height*0.07);
+    final widthContenedoresHabs = (MediaQuery.of(context).size.height*0.16);
+    // TODO: implement build
+    return Container(
+      margin: const EdgeInsets.all(10.0),
+      width: widthContenedoresHabs,
+      height: heightContenedoresHabs,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        border: Border.all(color: Colors.grey,width: 0.5),
+      ),
+      child: Text(
+        "Type: ${type.toString()}",
+        style: const TextStyle(
+          color: Colors.black26,
+          fontSize: 15.0,
+          overflow: TextOverflow.ellipsis,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+
+
 }
