@@ -21,7 +21,7 @@ class _HeaderFavPokemonState extends State<HeaderFavPokemon> {
         children: [
           InkWell(
             onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const ListPokemonScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ListPokemonScreen(pokemon: widget.pokemon,)));
             },
             child: Container(
               padding: EdgeInsets.only(top: 45.0,right: 20.0),
