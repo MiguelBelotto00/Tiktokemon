@@ -31,8 +31,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-pubspec.yaml
-pubspec.lock
+*.yaml
+*.lock
 
 # Web related
 lib/generated_plugin_registrant.dart
