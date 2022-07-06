@@ -15,5 +15,5 @@ Challenge desarrollado por petición de una empresa en el proceso de recruitmen.
 
 ## ScreenShots de la Aplicacion
 Puedes ver algunos screenshot de la Aplicacion Aqui
-[golem](assets/toreadme/golem.png) [machamp](assets/toreadme/Machamp.png)
-[rapidash](assets/toreadme/rapidash.png) [venasaur](assets/toreadme/venasaur.png)
+![golem](assets/toreadme/golem.png) ![machamp](assets/toreadme/Machamp.png)
+![rapidash](assets/toreadme/rapidash.png) ![venasaur](assets/toreadme/venasaur.png)
