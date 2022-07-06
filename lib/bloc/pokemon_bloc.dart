@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import '../class/pokemon.dart';
-class PokemonBloc{
+
+class PokemonBloc extends Bloc {
   Stream<List<Pokemon>>? streamPokemonList(int i) async* {
     i++;
     List<Pokemon> pokemonList = [];
@@ -8,27 +10,53 @@ class PokemonBloc{
     var value = await http.get(url);
     final pokemonResquest = pokemonFromJson(value.body);
     pokemonList.add(Pokemon(
-        name:pokemonResquest.name,
+        name: pokemonResquest.name,
         id: pokemonResquest.id,
         stats: pokemonResquest.stats,
         sprites: pokemonResquest.sprites,
-        types: pokemonResquest.types
-    ));
+        types: pokemonResquest.types));
     yield pokemonList;
   }
-  Stream<List<Pokemon>> pokemonSavedFav(Pokemon? pokemones)async* {
-    List<Pokemon> pokemonListFav = [];
-    if(pokemones != null) {
-      pokemonListFav.add(Pokemon(
-          id: pokemones.id,
-          name: pokemones.name,
-          sprites: pokemones.sprites,
-          types: pokemones.types,
-          stats: pokemones.stats
-      ));
-      yield pokemonListFav;
-    }
-    yield pokemonListFav;
-  }
-}
 
+  List<Pokemon> pokemonListFav = [];
+
+  Future<List<Pokemon>>? pokemonListAddData(Pokemon? pokemon) async {
+      pokemonListFav.add(Pokemon(
+          id: pokemon!.id,
+          name: pokemon.name,
+          stats: pokemon.stats,
+          sprites: pokemon.sprites,
+          types: pokemon.types));
+      return pokemonListFav;
+    }
+
+    Future<List<Pokemon>>? pokemonListShowData() async {
+      List<Pokemon> pokemonListDataShow = [];
+       pokemonListFav.forEach((pokemon) {
+        pokemonListDataShow.add(
+          Pokemon(
+              id: pokemon.id,
+              name: pokemon.name,
+              stats: pokemon.stats,
+              sprites: pokemon.sprites,
+              types: pokemon.types
+          )
+        );
+      });
+      return pokemonListDataShow;
+    }
+
+    Future<List<Pokemon>>? pokemonListDeleteData(Pokemon pokemon) async {
+      if (pokemonListFav.contains(pokemon)) {
+        pokemonListFav.remove(pokemon);
+        return pokemonListFav;
+      }
+     return pokemonListFav;
+    }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
+
+  }

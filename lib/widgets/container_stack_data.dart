@@ -16,13 +16,15 @@ class ContainerStackData extends StatelessWidget{
       height: MediaQuery.of(context).size.height,
       color: materialColorDataResponse,
       child: Stack(children: [
-        HeaderFavPokemon(pokemon: pokemon,),
+        HeaderFavPokemon(pokemon: pokemon,colors: materialColorDataResponse,),
         ContainerCard( pokemon: pokemon,colors: materialColorDataResponse,),
-        Container(
-          margin: EdgeInsets.only(top: 200.0,right: 30.0,left: 30.0),
-          child: Image(image: NetworkImage(
-              pokemon!.sprites!.other!.home!.frontDefault
-          ),width: 340.0,height: 340.0,),
+        FittedBox(
+          child: Container(
+            margin: EdgeInsets.only(top: 200.0,right: 30.0,left: 30.0),
+            child: Image(image: NetworkImage(
+                pokemon!.sprites!.other!.home!.frontDefault
+            ),width: 340.0,height: 340.0,),
+          ),
         )
       ]),
     );

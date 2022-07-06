@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:tiktokemon/bloc/pokemon_bloc.dart';
 import 'package:tiktokemon/class/pokemon.dart';
-
 import '../screens/ListPokemonScreen.dart';
 class ButtonYoTeElijo extends StatefulWidget {
   final Pokemon? pokemon;
@@ -9,42 +9,32 @@ class ButtonYoTeElijo extends StatefulWidget {
   @override
   State<ButtonYoTeElijo> createState() => _ButtonYoTeElijoState();
 }
-
 class _ButtonYoTeElijoState extends State<ButtonYoTeElijo> {
+  PokemonBloc pokemonBloc = PokemonBloc();
+  void functionVoidOnTap() async {
+      await pokemonBloc.pokemonListAddData(widget.pokemon);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Agregaste a tus favoritos",style: TextStyle(color: Colors.white),)));
+  }
   @override
   Widget build(BuildContext context) {
     final _width= (MediaQuery.of(context).size.width * 0.8);
     final _height = (MediaQuery.of(context).size.height * 0.05);
-    const bool colors = true;
-    return Container(
-      child: InkWell(
-        focusColor: Colors.grey,
-        onTap: () {
-          ListPokemonScreen(pokemon: widget.pokemon);
-          colors != false;
-        },
-        child: Container(
-          margin: const EdgeInsets.only(
-            top: 10.0,
-            left: 20.0,
-            right: 20.0,
-            bottom: 20.0
-          ),
-          height: _height,
-          width: _width,
-          decoration: const BoxDecoration(
-            color: colors == true ? Colors.black: Colors.grey,
-            borderRadius: BorderRadius.all(Radius.circular(10.0))
-          ),
-          child: const Center(
-            child: Text(
-              "Yo te elijo !",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-              ),
-            ),
-          ),
+    return InkWell(
+      onTap: functionVoidOnTap,
+      child: Container(
+        width: _width,
+        height: _height,
+        margin: EdgeInsets.all(10.0),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color:  Colors.black,
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Text(
+          "Yo te Elijo",style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+        ),
         ),
       ),
     );

@@ -55,7 +55,7 @@ class ContenedorDelTipo extends StatelessWidget {
     );
     final _width = (MediaQuery.of(context).size.width*0.35);
     final _height = (MediaQuery.of(context).size.width*0.17);
-    return Container(
+    return SizedBox(
       width: _width,
       height: _height,
       child: Row(

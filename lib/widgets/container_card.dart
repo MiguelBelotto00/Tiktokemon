@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktokemon/widgets/button_yo_te_elijo.dart';
 import 'package:tiktokemon/widgets/card_hability.dart';
+import '../bloc/pokemon_bloc.dart';
 import '../class/pokemon.dart';
 class ContainerCard extends StatelessWidget {
   late Pokemon? pokemon;
@@ -10,6 +11,7 @@ class ContainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pokemonBloc = PokemonBloc();
     //Uso los MediaQuery para saber el tamaño de la pantalla y los convierto en
     // 0.3 = 30% de toda la pantalla
     //0.8 = 80% de toda la pantalla

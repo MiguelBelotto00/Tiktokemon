@@ -52,11 +52,13 @@ class _HomePageState extends State<HomePage> {
 }
 
 Widget pokemonShowData(List<Pokemon>? pokemons){
-  return PageView(
-          physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          children: pokemons!.map((pokemones){
-            return ContainerStackData(pokemon: pokemones,);
-          }).toList(),
-        );
+  return Flexible(
+        child: PageView(
+            physics: BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            children: pokemons!.map((pokemones){
+              return ContainerStackData(pokemon: pokemones,);
+            }).toList(),
+          ),
+  );
 }

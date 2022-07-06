@@ -9,7 +9,7 @@ class CardHability extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10.0),
-      child: FittedBox(
+      child: Flexible(
         child: Row(
           children: [
             ContenedorDelTipo(type: type, points: points.toString(), colors: colors,)
