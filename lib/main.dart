@@ -5,7 +5,11 @@ import 'package:tiktokemon/screens/home_page.dart';
 
 import 'bloc/pokemon_bloc.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+      runApp(
+          const MyApp() ,
+          );
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -25,7 +29,7 @@ class _MyAppState extends State<MyApp> {
         initialRoute: 'home_page',
         routes: {
           'home_page': (BuildContext context) => const HomePage(),
-          'list_pokemon_screens': (BuildContext context)=> const ListPokemonScreen(),
+          '/list_pokemon_screens': (BuildContext context)=> const ListPokemonScreen(),
         },
       ),
     );

@@ -18,8 +18,8 @@ class _HomePageState extends State<HomePage> {
                physics: const BouncingScrollPhysics(),
                scrollDirection: Axis.vertical,
              itemBuilder: (context,index) {
-              return StreamBuilder<List<Pokemon>>(
-                   stream: pokemonBloc.streamPokemonList(index),
+              return FutureBuilder<List<Pokemon>>(
+                   future: pokemonBloc.streamPokemonList(index),
                    builder: (context, snapshot) {
                      switch (snapshot.connectionState) {
                        case ConnectionState.none:
@@ -52,13 +52,11 @@ class _HomePageState extends State<HomePage> {
 }
 
 Widget pokemonShowData(List<Pokemon>? pokemons){
-  return Flexible(
-        child: PageView(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            children: pokemons!.map((pokemones){
-              return ContainerStackData(pokemon: pokemones,);
-            }).toList(),
-          ),
-  );
+  return PageView(
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      children: pokemons!.map((pokemones){
+        return ContainerStackData(pokemon: pokemones,);
+      }).toList(),
+    );
 }

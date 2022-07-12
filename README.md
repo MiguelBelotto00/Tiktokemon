@@ -1,7 +1,6 @@
 # tiktokemon
-
-Challenge desarrollado por petición de una empresa en el proceso de recruitmen.
-
+Challenge desarrollado para una empresa en su proceso de selección.
+Start 29/06/2022 End: 12/07/2022
 ## Versiones
 - Flutter 3.0.0
 - Dart 2.17.0
@@ -18,3 +17,4 @@ Puedes ver algunos screenshot de la Aplicacion Aqui
 
 ![golem](assets/toreadme/golem.png) ![machamp](assets/toreadme/Machamp.png)
 ![rapidash](assets/toreadme/rapidash.png) ![venasaur](assets/toreadme/venasaur.png)
+![screen_list_view](assets/toreadme/screen_list_view.png)

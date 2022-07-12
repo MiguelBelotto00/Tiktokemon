@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktokemon/common/constant.dart';
@@ -24,7 +23,7 @@ class Validate{
     }
   }
   static textError(text){
-    return Text(text, style: TextStyle(color: Colors.black,fontSize: 40.0));
+    return Text(text, style: const TextStyle(color: Colors.black,fontSize: 40.0));
   }
 
   static connectionError({VoidCallback? method}) async {
