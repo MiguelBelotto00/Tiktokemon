@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktokemon/bloc/pokemon_bloc.dart';
 import 'package:tiktokemon/class/pokemon.dart';
-
-
 class ButtonYoTeElijo extends StatefulWidget {
   final Pokemon? pokemon;
   const ButtonYoTeElijo({Key? key, this.pokemon}) : super(key: key);
@@ -19,6 +17,7 @@ class _ButtonYoTeElijoState extends State<ButtonYoTeElijo> {
       "Agregaste a tus favoritos",
       style: TextStyle(color: Colors.white),
     )));
+    pokemonBloc.savePreferences();
   }
 
   @override

@@ -12,8 +12,10 @@ class ListPokemonScreen extends StatefulWidget {
 }
 class _ListPokemonScreen extends State<ListPokemonScreen> {
   var pokemonBloc = PokemonBloc();
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Row(

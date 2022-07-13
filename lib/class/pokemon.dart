@@ -33,6 +33,31 @@ class Pokemon {
     "stats": List<dynamic>.from(stats!.map((x) => x.toJson())),
     "types": List<dynamic>.from(types!.map((x) => x.toJson())),
   };
+
+  static Map<String, dynamic> toMap(Pokemon pokemon) => {
+    "id": pokemon.id,
+    "name": pokemon.name,
+    "sprites": pokemon.sprites!.toJson(),
+    "stats": List<dynamic>.from(pokemon.stats!.map((x) => x.toJson())),
+    "types": List<dynamic>.from(pokemon.types!.map((x) => x.toJson())),
+  };
+
+  static String encode(List<Pokemon> pokemones) => json.encode(
+    pokemones
+        .map<Map<String, dynamic>>((poke) {
+      if(poke.id != null){
+        return Pokemon.toMap(poke);
+      }else {
+       return {};
+      }
+    }).toList(),
+  );
+
+  static List<Pokemon> decode(String pokemon) =>
+      (json.decode(pokemon) as List<dynamic>)
+          .map<Pokemon>((poke) => Pokemon.fromJson(poke))
+          .toList();
+
 }
 
 

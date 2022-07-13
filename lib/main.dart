@@ -5,10 +5,8 @@ import 'package:tiktokemon/screens/home_page.dart';
 
 import 'bloc/pokemon_bloc.dart';
 
-void main() {
-      runApp(
-          const MyApp() ,
-          );
+void main(){
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -19,7 +17,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  @override
+  initState(){
+    super.initState();
+    preferences();
+  }
 
+  void preferences(){
+    setState((){
+      PokemonBloc().showPreferences();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
