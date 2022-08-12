@@ -31,10 +31,6 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-*.lock
-lib/linux/
-lib/macos/
-lib/windows/
 # Web related
 lib/generated_plugin_registrant.dart
 
