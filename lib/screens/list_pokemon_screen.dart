@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiktokemon/bloc/pokemon_bloc.dart';
 import 'package:tiktokemon/widgets/list_pokemon_show_data_fav.dart';
-import '../class/pokemon.dart';
 
 class ListPokemonScreen extends StatefulWidget {
   const ListPokemonScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   @override
   State<ListPokemonScreen> createState() => _ListPokemonScreen();
 }
-class _ListPokemonScreen extends State<ListPokemonScreen> {
-  var pokemonBloc = PokemonBloc();
 
+class _ListPokemonScreen extends State<ListPokemonScreen> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
+          children: [
             Text(
               "Mis Favoritos",
               style: TextStyle(
@@ -45,25 +43,14 @@ class _ListPokemonScreen extends State<ListPokemonScreen> {
         elevation: 0.0,
       ),
       body: SafeArea(
-        child: StreamBuilder<List<Pokemon>>(
-            stream: pokemonBloc.getPokemon(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                case ConnectionState.active:
-                case ConnectionState.done:
-                       return  pokemonShowDataFav(snapshot.data,);
-              }
-            }),
+        child: BlocBuilder<PokemonBloc, PokemonState>(
+          builder: (context, state) {
+            return ListPokemonShowDataFav(
+              pokemons: state.favoritePokemon,
+            );
+          },
+        ),
       ),
     );
   }
-}
-
-Widget pokemonShowDataFav(List<Pokemon>? pokemons,) {
-  return ListPokemonShowDataFav(pokemons: pokemons,);
 }

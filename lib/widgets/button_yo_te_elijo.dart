@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tiktokemon/bloc/pokemon_bloc.dart';
-import 'package:tiktokemon/class/pokemon.dart';
+import 'package:tiktokemon/class/pokemon_class.dart';
+
 class ButtonYoTeElijo extends StatefulWidget {
   final Pokemon? pokemon;
-  const ButtonYoTeElijo({Key? key, this.pokemon}) : super(key: key);
+  const ButtonYoTeElijo({super.key, this.pokemon});
   @override
   State<ButtonYoTeElijo> createState() => _ButtonYoTeElijoState();
 }
 
 class _ButtonYoTeElijoState extends State<ButtonYoTeElijo> {
-  PokemonBloc pokemonBloc = PokemonBloc();
   void functionVoidOnTap() {
-    pokemonBloc.listAddData(widget.pokemon);
+    context.read<PokemonBloc>().add(
+          SavePokemon(pokemon: widget.pokemon!),
+        );
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
       "Agregaste a tus favoritos",
       style: TextStyle(color: Colors.white),
     )));
-    pokemonBloc.savePreferences();
   }
 
   @override
   Widget build(BuildContext context) {
-    final _width = (MediaQuery.of(context).size.width * 0.8);
-    final _height = (MediaQuery.of(context).size.height * 0.05);
+    final width = (MediaQuery.of(context).size.width * 0.8);
+    final height = (MediaQuery.of(context).size.height * 0.05);
     return InkWell(
       onTap: functionVoidOnTap,
       child: Container(
-        width: _width,
-        height: _height,
+        width: width,
+        height: height,
         margin: const EdgeInsets.all(10.0),
         alignment: Alignment.center,
         decoration: BoxDecoration(

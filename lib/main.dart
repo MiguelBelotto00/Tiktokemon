@@ -1,16 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:tiktokemon/class/class.dart';
 import 'package:tiktokemon/screens/ListPokemonScreen.dart';
 import 'package:tiktokemon/screens/home_page.dart';
+import 'package:tiktokemon/services/network_service.dart';
 
 import 'bloc/pokemon_bloc.dart';
 
-void main(){
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: kIsWeb
+        ? HydratedStorage.webStorageDirectory
+        : await getApplicationDocumentsDirectory(),
+  );
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -18,26 +29,24 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  initState(){
+  initState() {
     super.initState();
-    preferences();
   }
 
-  void preferences(){
-    setState((){
-      PokemonBloc().showPreferences();
-    });
-  }
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      bloc: PokemonBloc(),
+    return BlocProvider<PokemonBloc>(
+      create: (context) => PokemonBloc(
+        PokemonState(pokemonList: <Pokemon>[]),
+        NetworkServices(),
+      ),
       child: MaterialApp(
         title: 'TikTokemon',
         initialRoute: 'home_page',
         routes: {
           'home_page': (BuildContext context) => const HomePage(),
-          '/list_pokemon_screens': (BuildContext context)=> const ListPokemonScreen(),
+          '/list_pokemon_screens': (BuildContext context) =>
+              const ListPokemonScreen(),
         },
       ),
     );

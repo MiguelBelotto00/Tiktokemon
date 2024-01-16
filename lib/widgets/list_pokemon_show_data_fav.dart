@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tiktokemon/bloc/pokemon_bloc.dart';
+import 'package:tiktokemon/class/pokemon_class.dart';
 import 'package:tiktokemon/widgets/material_color_data.dart';
 
-import '../bloc/pokemon_bloc.dart';
-import '../class/pokemon.dart';
-class ListPokemonShowDataFav extends StatefulWidget{
+class ListPokemonShowDataFav extends StatefulWidget {
   final List<Pokemon>? pokemons;
-  const ListPokemonShowDataFav({Key? key, this.pokemons}) : super(key: key);
+  const ListPokemonShowDataFav({super.key, this.pokemons});
 
   @override
   State<ListPokemonShowDataFav> createState() => _ListPokemonShowDataFav();
 }
-class _ListPokemonShowDataFav extends State<ListPokemonShowDataFav>{
-  var pokemonBloc = PokemonBloc();
-  void onDelete(Pokemon pokemones){
-    setState((){
-      pokemonBloc.deletePokemonData(pokemones);
-    });
+
+class _ListPokemonShowDataFav extends State<ListPokemonShowDataFav> {
+  void onDelete(Pokemon pokemones) {
+    context.read<PokemonBloc>().add(DeletePokemon(pokemon: pokemones));
   }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: widget.pokemons!.map((pokemones) {
         var materialColorDataResponse =
-        MaterialColorData.colorData(pokemones.types![0].type!.name);
+            MaterialColorData.colorData(pokemones.types![0].type!.name);
         return Container(
           height: (MediaQuery.of(context).size.height * 0.15),
           margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -65,5 +65,4 @@ class _ListPokemonShowDataFav extends State<ListPokemonShowDataFav>{
       }).toList(),
     );
   }
-
 }

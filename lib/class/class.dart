@@ -1,0 +1,9 @@
+export 'dream_world_class.dart';
+export 'home_class.dart';
+export 'official_artwork_class.dart';
+export 'other_class.dart';
+export 'pokemon_class.dart';
+export 'species_class.dart';
+export 'sprites_class.dart';
+export 'stat_class.dart';
+export 'types_class.dart';

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:tiktokemon/class/class.dart';
 import 'package:tiktokemon/widgets/button_yo_te_elijo.dart';
 import 'package:tiktokemon/widgets/card_hability.dart';
-import '../class/pokemon.dart';
 
 class ContainerCard extends StatelessWidget {
   final Pokemon? pokemon;
   final Color colors;
 
-  const ContainerCard({Key? key, required this.pokemon, required this.colors})
-      : super(key: key);
+  const ContainerCard({super.key, required this.pokemon, required this.colors});
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +73,11 @@ class ContainerCard extends StatelessWidget {
 
 class CardType extends StatelessWidget {
   final String? type;
-  const CardType({Key? key, this.type = ""}) : super(key: key);
+  const CardType({super.key, this.type = ""});
   @override
   Widget build(BuildContext context) {
     final heightContenedoresHabs = (MediaQuery.of(context).size.height * 0.08);
     final widthContenedoresHabs = (MediaQuery.of(context).size.width * 0.33);
-    // TODO: implement build
     return Container(
       margin: const EdgeInsets.only(right: 20.0, left: 10.0),
       width: widthContenedoresHabs,
